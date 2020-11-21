@@ -82,10 +82,3 @@ function invert_x(v) =
   (3 == len(v))
   ? [ v.x * -1, v.y, v.z ]
   : [ v.x * -1, v.y ];
-
-function vx00(v) = [ v.x, 0, 0 ];
-function v0y0(v) = [ 0, v.y, 0 ];
-function v00z(v) = [ 0, 0, v.z ];
-function vxy0(v) = [ v.x, v.y, 0 ];
-function vx0z(v) = [ v.x, 0, v.z ];
-function v0yz(v) = [ 0, v.y, v.z ];
