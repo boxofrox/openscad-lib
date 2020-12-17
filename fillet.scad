@@ -202,22 +202,10 @@ function fillet_corner_2d(av, bv, r, e = 0.1) =
         ]
       );
 
-module mark() {
-  cylinder(d = 0.1, h = 100, $fn = 32);
 }
 
-module vec2(v) {
-  hull() {
-    cylinder(d = 0.1, h = 0.1, $fn = 30);
-    translate([ v.x, v.y, 0 ])
-      cylinder(d = 0.1, h = 0.1, $fn = 30);
   }
 }
 
-module vec3(v) {
-  hull() {
-    cylinder(d = 0.1, h = 0.1, $fn = 30);
-    translate(v)
-      cylinder(d = 0.1, h = 0.1, $fn = 30);
   }
 }
