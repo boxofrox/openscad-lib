@@ -57,12 +57,6 @@ module fillet_circle_with_arc(fr, r, fa1 = 0, fa2 = 90, aa = 360, e = 0.1) {
   j = [ 0, 1, 0 ];
   k = [ 0, 0, 1 ];
 
-  v1 = i * cos(90 * $t) + j * sin(90 * $t);
-  v2 = i * cos(90 * $t) + j * -sin(90 * $t);
-
-  v3 = -[ -sin(90 * $t), cos(90 * $t) ];
-  v4 = -[ -sin(90 * $t), -cos(90 * $t) ];
-
   ah = i * cos(fa1) - j * sin(fa1);
   bh = i * cos(fa2) + j * sin(fa2);
 
