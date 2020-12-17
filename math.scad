@@ -3,3 +3,5 @@ function dot(av, bv) =
   (3 == len(av))
   ? av.x * bv.x + av.y * bv.y + av.z * bv.z
   : av.x * bv.x + av.y * bv.y;
+
+function unit(v) = v / norm(v);
