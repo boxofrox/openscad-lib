@@ -45,24 +45,15 @@ module fillet_edge_bw_vec(fr, h, av, bv, e = 0.1) {
     polygon(points);
 }
 
-module fillet_circle_with_arc(fr, r, fa1 = 0, fa2 = 90, aa = 360, e = 0.1) {
+module fillet_circle_with_arc(fr, r, av = [ 1, 0 ], bv = [ 0, 1 ], aa = 360, e = 0.1) {
   // fr   :: Real -- Radius of fillet geometry (mm).
   // r    :: Real -- Radius of circle that fillet follows (mm).
-  // fa1  :: Real -- Angle of corner fillet occupies (deg).
-  // fa2  :: Real -- Angle of corner fillet occupies (deg).
+  // av   :: [ x, y ] -- Vector of first edge of fillet corner.
+  // bv   :: [ x, y ] -- Vector of second edge of fillet corner.
   // aa   :: Real -- Angle of arc around circle (deg).
   // e    :: Real -- Epsilon. Amount of material to add to fillet geometry's secondary edges.
 
-  i = [ 1, 0, 0 ];
-  j = [ 0, 1, 0 ];
-  k = [ 0, 0, 1 ];
-
-  ah = i * cos(fa1) - j * sin(fa1);
-  bh = i * cos(fa2) + j * sin(fa2);
-
-  assert(-1 < ah * bh, "error: fillet_circle_with_arc: fa1 + fa2 >= 180");
-
-  points = fillet_corner_2d(ah, bh, fr, e);
+  points = fillet_corner_2d(av, bv, fr, e);
 
   rotate_extrude(angle = aa, convexity = 3)
     translate([ r, 0, 0 ])
