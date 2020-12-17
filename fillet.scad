@@ -1,5 +1,6 @@
 use <affine.scad>
 use <math.scad>
+use <vec.scad>
 
 // Basic fillet of 2d shapes using openscad's offset function.  Quality of
 // results may vary.
@@ -155,10 +156,220 @@ function fillet_corner_2d(av, bv, r, e = 0.1) =
         ]
       );
 
+
+
+/// Examples
+
+$fn = $preview ? 32 : 128;
+epsilon = 0.1;
+
+translate([ 0, 0, 0 ])
+  example_fillet2d();
+
+translate([ 10, 0, 0 ])
+  example_fillet_edge();
+
+translate([ 20, 0, 0 ])
+  example_fillet_edge_with_arc();
+
+translate([ 30, 0, 0 ])
+  example_fillet_edge_bw_vec();
+
+translate([ 40, 0, 0 ])
+  example_fillet_circle_with_arc_1();
+
+translate([ 50, 0, 0 ])
+  example_fillet_circle_with_arc_2();
+
+
+module example_fillet2d() {
+  module shape() {
+    square([ 5, 5 ]);
+  }
+
+  // Initial shape.
+  shape();
+
+  // With fillet applied.
+  translate([ 0, 10, 0 ])
+    fillet2d()
+    shape();
 }
 
+module example_fillet_edge() {
+  size = [ 5, 5, 2 ];
+
+  module shape() {
+    cube(size);
+  }
+
+  // Initial shape.
+  shape();
+
+  // With fillet applied to one edge.
+  translate([ 0, 10, 0 ]) {
+    difference() {
+      shape();
+
+      translate([ 0, 0, -epsilon ])
+        fillet_edge(r = 1, h = size.z + 2 * epsilon);
+    }
+  }
+
+  // With fillet applied to three edges of one corner.
+  translate([ 0, 20, 0 ]) {
+    difference() {
+      shape();
+
+      translate([ 0, 0, -epsilon ])
+        fillet_edge(r = 1, h = size.z + 2 * epsilon);
+
+      translate([ 0, -epsilon, size.z ])
+        rotate([ -90, 0, 0 ])
+        fillet_edge(r = 1, h = size.y + 2 * epsilon);
+
+      translate([ -epsilon, 0, size.z ])
+        rotate([ 0, 90, 0 ])
+        fillet_edge(r = 1, h = size.y + 2 * epsilon);
+    }
   }
 }
 
+module example_fillet_edge_with_arc() {
+  size = [ 5, 5, 2 ];
+
+  module shape() {
+    difference() {
+      cube(size);
+
+      translate([ 0, 0, -epsilon ])
+        rotate([ 0, 0, 45 ])
+        cube([ 20, 20, 3 ]);
+    }
+  }
+
+  // Initial shape with corner != 90 deg.
+  shape();
+
+  // With fillet applied applied to 45 deg corner.
+  translate([ 0, 10, 0 ])
+    difference() {
+      shape();
+
+      translate([ 0, 0, -epsilon ])
+        fillet_edge_with_arc(r = 1, h = size.z + 2 * epsilon, a = 45);
+    }
+}
+
+module example_fillet_edge_bw_vec() {
+  size = [ 5, 5, 2 ];
+
+  module shape() {
+    difference() {
+      cube(size);
+
+      translate([ 0, 0, -epsilon ])
+        rotate([ 0, 0, 45 ])
+        cube([ 20, 20, 3 ]);
+    }
+  }
+
+  // Initial shape with corner != 90 deg.
+  shape();
+
+  // With fillet applied applied to 45 deg corner using normals of faces
+  // adjacent to corner..
+  translate([ 0, 10, 0 ])
+    difference() {
+      shape();
+
+      translate([ 0, 0, -epsilon ])
+        fillet_edge_bw_vec(fr = 1, h = size.z + 2 * epsilon, av = [ 1, 1 ], bv = [ 1, 0 ]);
+    }
+}
+
+module example_fillet_circle_with_arc_1() {
+  i = [ 1, 0, 0 ];
+  j = [ 0, 1, 0 ];
+  k = [ 0, 0, 1 ];
+
+  size_a = [ 5, 0, 1 ];
+  size_b = [ 3, 0, 2 ];
+
+  module shape() {
+    cylinder(d = size_a.x, h = size_a.z);
+    translate(k * size_a.z)
+      cylinder(d = size_b.x, h = size_b.z);
+  }
+
+  // Initial shape with convex and concave edges.
+  shape();
+
+  // Fillet two edges of shape a full 360 deg.
+  translate([ 0, 10, 0 ])
+    difference() {
+      union() {
+        shape();
+
+        // Fillet concave edge (add material).
+        translate(k * size_a.z)
+          color("#8ab347")
+          fillet_circle_with_arc(fr = 0.5, r = size_b.x / 2, av = [ 1, 0 ], bv = [ 0, 1 ]);
+      }
+
+      // Fillet convex edge (remove material).
+      translate(k * (size_a.z + size_b.z))
+        fillet_circle_with_arc(fr = 0.5, r = size_b.x / 2, av = [ -1, 0 ], bv = [ 0, -1 ]);
+    }
+
+  // Fillet two edges of shape a full 180 deg.
+  translate([ 0, 20, 0 ])
+    difference() {
+      union() {
+        shape();
+
+        // Fillet concave edge (add material).
+        translate(k * size_a.z)
+          color("#8ab347")
+          fillet_circle_with_arc(fr = 0.5, r = size_b.x / 2, av = [ 1, 0 ], bv = [ 0, 1 ], aa = 180);
+      }
+
+      // Fillet convex edge (remove material).
+      translate(k * (size_a.z + size_b.z))
+        fillet_circle_with_arc(fr = 0.5, r = size_b.x / 2, av = [ -1, 0 ], bv = [ 0, -1 ], aa = 180);
+    }
+}
+
+module example_fillet_circle_with_arc_2() {
+  i = [ 1, 0, 0 ];
+  j = [ 0, 1, 0 ];
+  k = [ 0, 0, 1 ];
+
+  radius = [ 2.5, 1.5, 1 ];
+  height = [ 1, 2 ];
+
+  // Make angle of circular edge more obtuse.
+
+  module shape() {
+    cylinder(r1 = radius[0], r2 = radius[1], h = height[0]);
+    translate(k * height[0])
+      cylinder(r1 = radius[1], r2 = radius[2], h = height[1]);
+  }
+
+  // Initial shape.
+  shape();
+
+  // Fillet obtuse concave edge.
+  translate(10 * j) {
+    shape();
+
+    translate(k * height[0]) {
+      // Don't forget to convert diameters to radii.
+      av = [ radius[0] - radius[1], -height[0] ];
+      bv = [ radius[2] - radius[1],  height[1] ];
+
+      color("#8ab347")
+      fillet_circle_with_arc(fr = 0.5, r = radius[1], av = av, bv = bv, e = 0.01);
+    }
   }
 }
