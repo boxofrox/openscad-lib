@@ -1,6 +1,14 @@
 use <affine.scad>
 use <math.scad>
 
+// Basic fillet of 2d shapes using openscad's offset function.  Quality of
+// results may vary.
+//
+// Example:
+//
+// fillet2d() {
+//   square(r = 5);
+// }
 module fillet2d(r) {
   offset(r=r) {
     offset(delta=-r) {
@@ -9,6 +17,8 @@ module fillet2d(r) {
   }
 }
 
+// Generate fillet geometry for edge of length `h` with radius `fr`.
+// Fillet oriented for edge along [ 0, 0, 1 ].
 module fillet_edge(r, h, e = 0.1) {
   // r  :: Real -- Radius of fillet geometry (mm).
   // h  :: Real -- Height of fillet geometry (mm).
@@ -32,6 +42,13 @@ module fillet_edge_with_arc(r, h, a = 90, e = 0.1) {
 
 }
 
+// Generate fillet geometry for edge of length `h` with given radius `fr`
+// between vectors `av` and `bv`.
+// Fillet oriented for edge along [0, 0, 1].
+// `av` and `bv` are not normals, but vectors parallel to two faces that
+// intersect to form a corner (presumably the corner you want to fillet).
+//
+// Similiar to fillet_edge_with_arc, but computes angle between two vectors.
 module fillet_edge_bw_vec(fr, h, av, bv, e = 0.1) {
   // fr :: Real -- Radius of fillet geometry (mm).
   // h  :: Real -- Height of edge (mm).
@@ -45,6 +62,8 @@ module fillet_edge_bw_vec(fr, h, av, bv, e = 0.1) {
     polygon(points);
 }
 
+// Generate fillet geometry for circular edge with radius `r`.
+// Use `aa` to limit fillet to arc along circular edge.
 module fillet_circle_with_arc(fr, r, av = [ 1, 0 ], bv = [ 0, 1 ], aa = 360, e = 0.1) {
   // fr   :: Real -- Radius of fillet geometry (mm).
   // r    :: Real -- Radius of circle that fillet follows (mm).
@@ -60,6 +79,9 @@ module fillet_circle_with_arc(fr, r, av = [ 1, 0 ], bv = [ 0, 1 ], aa = 360, e =
     polygon(points);
 }
 
+// All the magic happens here.
+// Form a curve with the given radius `r` between the given vectors `av` and
+// `bv`, then route around corner to generate geometry for fillet.
 function fillet_corner_2d(av, bv, r, e = 0.1) =
   // av :: [x, y] -- Vector along first edge.
   // bv :: [x, y] -- Vector along second edge.
