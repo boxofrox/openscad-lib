@@ -88,56 +88,15 @@ module fillet_edge_with_arc_2(r, h, a = 90, e = 0.1) {
 
 module fillet_edge_bw_vec(fr, h, av, bv, e = 0.1) {
   // fr :: Real -- Radius of fillet geometry (mm).
-  // h  :: Real -- Height of fillet geometry (mm).
-  // a  :: Real -- Angle of corner (deg).
+  // h  :: Real -- Height of edge (mm).
+  // av :: [ x, y ] -- 2D vector of first normal.
+  // bv :: [ x, y ] -- 2D vector of second normal.
   // e  :: Real -- Epsilon. Amount of material to add to fillet geometry's secondary edges.
 
-  i = [ 1, 0, 0 ];
-  j = [ 0, 1, 0 ];
-  k = [ 0, 0, 1 ];
+  points = fillet_corner_2d(av, bv, fr, e);
 
-  function rot_z_90(v) = [ -v.y, v.x ];
-
-  ah = av / norm(av);
-  bh = bv / norm(bv);
-
-  an = rot_z_90(ah);
-  bn = rot_z_90(bh);
-
-  // cv = (av + bv) / 2
-  // ch = cv / norm(cv)
-  // x * ah + fr * an = y * ch
-  // x * bh - fr * bn = y * ch
-  // x ah - x bh + fr an + fr bn = 0
-  // x (ah - bh) + fr (an + bn) = 0
-  // x (bh - ah) = fr (an + bn)
-  // x dv = fr ev
-  // x |d| dh = fr |e| eh    where dh = eh
-  // x |d| = fr |e|
-  // x = fr |e| / |d|
-
-  x = fr * norm(an + bn) / norm(bh - ah);
-
-  cv = x * ah + fr * an;
-  ch = cv / norm(cv);
-
-  points =
-    [ -e * [ ch.x, ch.y ]
-    ,  e * [ bn.x, bn.y ]
-    ,  x * [ bh.x, bh.y ] + e * [ bn.x, bn.y ]
-    ,  cv
-    ,  x * [ ah.x, ah.y ] - e * [ an.x, an.y ]
-    , -e * [ an.x, an.y ]
-    ];
-
-  color("green")
-  difference() {
-    linear_extrude(height = h, convexity = 3)
-      polygon(points);
-
-    translate(cv - k * 0.1)
-      cylinder(r = fr, h = h + 0.2);
-  }
+  linear_extrude(height = h, convexity = 3)
+    polygon(points);
 }
 
 module fillet_circle_with_arc(fr, r, fa1 = 0, fa2 = 90, aa = 360, e = 0.1) {
