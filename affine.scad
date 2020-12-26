@@ -58,24 +58,29 @@ function rot_2d_vec(va, vb) =
 
 function center_x(v) =
   (3 == len(v))
-  ? [ v.x / 2, v.y, v.z ]
-  : [ v.x / 2, v.y ];
+  ? [ v.x / 2, 0, 0 ]
+  : [ v.x / 2, 0 ];
 function center_y(v) =
   (3 == len(v))
-  ? [ v.x, v.y / 2, v.z ]
-  : [ v.x, v.y / 2 ];
+  ? [ 0, v.y / 2, 0 ]
+  : [ 0, v.y / 2 ];
 function center_xy(v) =
   (3 == len(v))
-  ? [ v.x / 2, v.y / 2, v.z ]
+  ? [ v.x / 2, v.y / 2, 0 ]
   : [ v.x / 2, v.y / 2 ];
 
-function center_xy(v) = [ v.x / 2, v.y / 2, v.z ];
+function center_xy(v) = [ v.x / 2, v.y / 2, 0 ];
 
 function center_a_on_b(va, vb) = (vb - va) / 2;
+function center_y_a_on_b(va, vb) =
+  [ 0
+  , (vb.y - va.y) / 2
+  , 0
+  ];
 function center_xy_a_on_b(va, vb) =
   [ (vb.x - va.x) / 2
   , (vb.y - va.y) / 2
-  , va.z
+  , 0
   ];
 
 function invert_x(v) =
