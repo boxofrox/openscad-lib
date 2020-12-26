@@ -44,72 +44,138 @@ function m4_nut_width_flat()   = 7.0;
 function m4_nut_height()       = 3.2;
 
 
-module m2_thread_hole(h) {
-  thread_hole(m2_tap_diameter(), h);
+module m2_thread_hole(h, a=60, vert=false) {
+  if (vert) {
+    thread_hole_drop_v2(m2_tap_diameter(), h, a);
+  } else {
+    thread_hole(m2_tap_diameter(), h);
+  }
 }
 
-module m2_thru_hole(h) {
-  thru_hole(d=m2_clearance_diamter(), h=h);
+module m2_thru_hole(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(m2_clearance_diamter(), h, a);
+  } else {
+    thru_hole(m2_clearance_diamter(), h);
+  }
 }
 
-module m2_thru_hole_close(h) {
-  thru_hole(d=m2_close_diameter(), h=h);
+module m2_thru_hole_close(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(m2_close_diameter(), h), a;
+  } else {
+    thru_hole(m2_close_diameter(), h);
+  }
 }
 
-module m2_thru_hole_loose(h) {
-  thru_hole(d=m2_loose_diameter(), h=h);
-}
-
-module m2_5_thread_hole(h) {
-  thread_hole(d=m2_5_tap_diameter(), h=h);
-}
-
-module m2_5_thru_hole(h) {
-  thru_hole(d=2.75, h=h);
-}
-
-module m2_5_thru_hole_close(h) {
-  thru_hole(d=2.65, h=h);
-}
-
-module m2_5_thru_hole_loose(h) {
-  thru_hole(d=3.1, h=h);
-}
-
-
-
-module m3_thread_hole(h) {
-  thread_hole(m3_tap_diameter(), h);
-}
-
-module m3_thru_hole(h) {
-  thru_hole(m3_clearance_diameter(), h);
-}
-
-module m3_thru_hole_close(h) {
-  thru_hole(m3_close_diameter(), h);
-}
-
-module m3_thru_hole_loose(h) {
-  thru_hole(m3_loose_diameter(), h);
+module m2_thru_hole_loose(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(m2_loose_diameter(), h, a);
+  } else {
+    thru_hole(m2_loose_diameter(), h);
+  }
 }
 
 
 
-module m4_thread_hole(h) {
-  thread_hole(3.25, h);
+module m2_5_thread_hole(h, a=60, vert=false) {
+  if (vert) {
+    thread_hole_drop_v2(m2_5_tap_diameter(), h, a);
+  } else {
+    thread_hole(m2_5_tap_diameter(), h);
+  }
 }
 
-module m4_thru_hole(h) {
-  thru_hole(4.40, h);
+module m2_5_thru_hole(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(2.75, h, a);
+  } else {
+    thru_hole(2.75, h);
+  }
 }
 
-module m4_thru_hole_close(h) {
-  thru_hole(4.20, h);
+module m2_5_thru_hole_close(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(2.65, h, a);
+  } else {
+    thru_hole(2.65, h);
+  }
 }
 
-module m4_thru_hole_loose(h) {
-  thru_hole(4.60, h);
+module m2_5_thru_hole_loose(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(3.1, h, a);
+  } else {
+    thru_hole(3.1, h);
+  }
+}
+
+
+
+module m3_thread_hole(h, a=60, vert=false) {
+  if (vert) {
+    thread_hole_drop_v2(m3_tap_diameter(), h, a);
+  } else {
+    thread_hole(m3_tap_diameter(), h);
+  }
+}
+
+module m3_thru_hole(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(m3_clearance_diameter(), h, a);
+  } else {
+    thru_hole(m3_clearance_diameter(), h);
+  }
+}
+
+module m3_thru_hole_close(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(m3_close_diameter(), h, a);
+  } else {
+    thru_hole(m3_close_diameter(), h);
+  }
+}
+
+module m3_thru_hole_loose(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(m3_loose_diameter(), h, a);
+  } else {
+    thru_hole(m3_loose_diameter(), h);
+  }
+}
+
+
+
+module m4_thread_hole(h, a=60, vert=false) {
+  if (vert) {
+    thread_hole_drop_v2(3.25, h, a);
+  } else {
+    thread_hole(3.25, h);
+  }
+}
+
+module m4_thru_hole(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(m4_clearance_diameter(), h, a);
+  } else {
+    thru_hole(m4_clearance_diameter(), h);
+  }
+}
+
+module m4_thru_hole_close(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(m4_close_diameter(), h, a);
+  } else {
+    thru_hole(m4_close_diameter(), h);
+  }
+}
+
+module m4_thru_hole_loose(h, a=60, vert=false) {
+  if (vert) {
+    thru_hole_drop_v2(m4_loose_diameter(), h, a);
+  } else {
+    thru_hole(m4_loose_diameter(), h);
+  }
 }
 
 
