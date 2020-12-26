@@ -76,13 +76,6 @@ module m2_5_thru_hole_loose(h) {
   thru_hole(d=3.1, h=h);
 }
 
-module m2_5_hex_recess(o = [0, 0]) {
-  // o :: [x, z] -- Oversize diameter of cavity by amount ([mm, mm]).
-
-  linear_extrude(height = m2_5_nut_height + o.y, convexity = 1) {
-    hexagon(m2_5_nut_width_corner + o.x);
-  }
-}
 
 
 module m3_thread_hole(h) {
@@ -119,3 +112,16 @@ module m4_thru_hole_loose(h) {
   thru_hole(4.60, h);
 }
 
+
+
+
+module m2_hex_recess(o = [0, 0]) {
+  // o :: [x, z] -- Oversize diameter of cavity by amount ([mm, mm]).
+
+  hex_recess(o, m2_nut_height(), m2_nut_width_corner());
+}
+module m2_5_hex_recess(o = [0, 0]) {
+  // o :: [x, z] -- Oversize diameter of cavity by amount ([mm, mm]).
+
+  hex_recess(o, m2_5_nut_height(), m2_5_nut_width_corner());
+}
