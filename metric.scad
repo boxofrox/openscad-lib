@@ -62,7 +62,7 @@ module m2_thru_hole(h, a=60, vert=false) {
 
 module m2_thru_hole_close(h, a=60, vert=false) {
   if (vert) {
-    thru_hole_drop_v2(m2_close_diameter(), h), a;
+    thru_hole_drop_v2(m2_close_diameter(), h, a);
   } else {
     thru_hole(m2_close_diameter(), h);
   }
