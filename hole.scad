@@ -1,4 +1,5 @@
 use <reflect.scad>
+use <shape.scad>
 
 module thru_hole(d, h) {
   cylinder(d=d, h=h);
@@ -73,4 +74,15 @@ module thread_hole_drop_v1(d, h, a=45) {
 
 module thread_hole_drop_v2(d, h, a=45) {
   teardrop_hole_v2(d, h, a);
+}
+
+
+
+
+module hex_recess(o = [0, 0], width_corner = 1, height = 1) {
+  // o :: [x, z] -- Oversize diameter of cavity by amount ([mm, mm]).
+
+  linear_extrude(height = height + o.y, convexity = 1) {
+    hexagon(width_corner + o.x);
+  }
 }
