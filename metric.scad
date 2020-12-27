@@ -192,4 +192,9 @@ module m2_5_hex_recess(o = [0, 0]) {
 
   hex_recess(o, m2_5_nut_width_corner(), m2_5_nut_height());
 }
+
+module m4_hex_recess(o = [0, 0]) {
+  // o :: [x, z] -- Oversize diameter of cavity by amount ([mm, mm]).
+
+  hex_recess(o, m4_nut_width_corner(), m4_nut_height());
 }
