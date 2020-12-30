@@ -184,17 +184,17 @@ module m4_thru_hole_loose(h, a=60, vert=false) {
 module m2_hex_recess(o = [0, 0]) {
   // o :: [x, z] -- Oversize diameter of cavity by amount ([mm, mm]).
 
-  hex_recess(o, m2_nut_width_corner(), m2_nut_height());
+  hex_recess(m2_nut_width_corner(), m2_nut_height(), o);
 }
 
 module m2_5_hex_recess(o = [0, 0]) {
   // o :: [x, z] -- Oversize diameter of cavity by amount ([mm, mm]).
 
-  hex_recess(o, m2_5_nut_width_corner(), m2_5_nut_height());
+  hex_recess(m2_5_nut_width_corner(), m2_5_nut_height(), o);
 }
 
 module m4_hex_recess(o = [0, 0]) {
   // o :: [x, z] -- Oversize diameter of cavity by amount ([mm, mm]).
 
-  hex_recess(o, m4_nut_width_corner(), m4_nut_height());
+  hex_recess(m4_nut_width_corner(), m4_nut_height(), o);
 }

@@ -79,7 +79,7 @@ module thread_hole_drop_v2(d, h, a=45) {
 
 
 
-module hex_recess(o = [0, 0], width_corner = 1, height = 1) {
+module hex_recess(width_corner = 1, height = 1, o = [ 0, 0 ]) {
   // o :: [x, z] -- Oversize diameter of cavity by amount ([mm, mm]).
 
   linear_extrude(height = height + o.y, convexity = 1) {
