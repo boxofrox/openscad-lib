@@ -12,14 +12,14 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////
-// sline - generate a "snake line" of width w and height h
+// sline_stroke - generate a "snake line" of width w and height h
 // with a arbitrary sequence of segments defined by a radius and a turning angle
 //
 //   angles[i] > 0  left turn / counter-clockwise
 //   angles[i] < 0  left turn / clockwise
 //   angles[i] = 0  straight segment with length radii[i]
 //
-module sline(angles, radii, w, h, convexity = 1, e = 0.1, start = 0, stop = 9999) {
+module sline_stroke(angles, radii, w, h, convexity = 1, e = 0.1, start = 0, stop = 9999) {
   stop1 = (stop >= 0) ? stop : len(angles) - stop;
 
   linear_extrude(h, convexity = convexity)
@@ -83,7 +83,7 @@ module sline(angles, radii, w, h, convexity = 1, e = 0.1, start = 0, stop = 9999
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// sline_stroke - generate a "snake line" of varying width and height h
+// sline_callig - generate a "snake line" of varying width and height h
 // with a arbitrary sequence of segments defined by a radius and a turning angle
 //
 //   angles[i] > 0  left turn / counter-clockwise
@@ -94,7 +94,7 @@ module sline(angles, radii, w, h, convexity = 1, e = 0.1, start = 0, stop = 9999
 //
 //   len(angles) = len(radii) = len(widths) - 1
 //
-module sline_stroke(angles, radii, widths, h, convexity = 1, e = 0.1, start = 0, stop = 9999) {
+module sline_callig(angles, radii, widths, h, convexity = 1, e = 0.1, start = 0, stop = 9999) {
   stop1 = (stop >= 0) ? stop : len(angles) - stop;
 
   assert(len(angles) < len(widths));
