@@ -83,6 +83,6 @@ module hex_recess(o = [0, 0], width_corner = 1, height = 1) {
   // o :: [x, z] -- Oversize diameter of cavity by amount ([mm, mm]).
 
   linear_extrude(height = height + o.y, convexity = 1) {
-    hexagon(width_corner + o.x);
+    hexagon(width_corner, o.x);
   }
 }
