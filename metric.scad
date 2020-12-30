@@ -39,7 +39,7 @@ function m3_5_nut_width_flat()   = 6.0;
 function m3_5_nut_height()       = 2.8;
 
 
-function m4_nut_width_corner() = 7.66;
+function m4_nut_width_corner() = 7.8;
 function m4_nut_width_flat()   = 7.0;
 function m4_nut_height()       = 3.2;
 
