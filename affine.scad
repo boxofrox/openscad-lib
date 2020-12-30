@@ -68,6 +68,9 @@ function center_xy(v) =
   (3 == len(v))
   ? [ v.x / 2, v.y / 2, 0 ]
   : [ v.x / 2, v.y / 2 ];
+function center_xz(v) =
+  assert(3 == len(v))
+  [ v.x / 2, 0, v.z / 2 ];
 
 function center_xy(v) = [ v.x / 2, v.y / 2, 0 ];
 
