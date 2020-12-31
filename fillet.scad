@@ -121,7 +121,7 @@ function fillet_corner_2d(av, bv, r, e = 0.1) =
 
     , fa = acos(aah * bbh)
 
-    , step = fa / $fn
+    , step = floor(360.0 / $fn)
     , start = fa / 2
     , end = -fa / 2
     )
