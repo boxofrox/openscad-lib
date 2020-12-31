@@ -160,7 +160,7 @@ function fillet_corner_2d(av, bv, r, e = 0.1) =
 
 /// Examples
 
-$fn = $preview ? 32 : 128;
+//$fn = $preview ? 32 : 128;
 epsilon = 0.1;
 
 translate([ 0, 0, 0 ])
